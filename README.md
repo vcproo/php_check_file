@@ -1,2 +1,7 @@
 # php_check_file
-php验证图片文件是否存在木马
+### PHP校验部分上传文件是否含有木马
+
+
+支持文件后缀
+
+- image/excel/world/txt/mp4/mp3

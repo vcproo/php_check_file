@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="./js/jquery-3.6.0.min.js"></script>
+<body>
+    <from>
+        <input type="file" value="上传图片" class="input-file">
+    </from>
+</body>
+</html>
+<script>
+    let data = new FormData();
+    data.append("name", "Nicholas");
+    $(".input-file").change(function(e) {
+        var file = e.target.files[0]
+        console.log(file)
+        var fd = new FormData()
+        fd.append('file', file)
+        ajax(fd)
+    })
+    function ajax(data) {
+        $.ajax({
+            url: "http://192.165.0.37/checkImage/checkImage.php",
+            dataType: "json",
+            async: false,
+            processData: false,
+            contentType: false,
+            data: data,
+            method: "POST",
+            success(res) {
+                console.log(res)
+                if (res.code == 20000) {
+                    $("#leftimage").attr("src", res.data['source:'])
+                    $("#rightimage").attr("src", res.data.output)
+                } else {
+                    alert(res.code)
+                }
+            },
+            error(err) {
+                console.log(err)
+            }
+        })
+    }
+</script>
